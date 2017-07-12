@@ -1,10 +1,15 @@
+// Package spiral implements spiral generation funcions based on
+// geometrical shapes
 package spiral
 
 import (
 	"github.com/antavelos/gotools/geometry"
 )
 
-func Spiral(p geometry.Point, n int, step float64) chan geometry.Point {
+// Spiral generates a sequence of points that consist a spiral given a
+// starting point, a desired length of the sequence and the distance
+// between the points
+func Spiral(p geometry.Point, n int, d float64) chan geometry.Point {
 	c := make(chan geometry.Point)
 	go func() {
 		c <- p
@@ -13,26 +18,26 @@ func Spiral(p geometry.Point, n int, step float64) chan geometry.Point {
 			case 0:
 				// east
 				for j := 0; j <= i && n > 1; j++ {
-					p.Step(step, 0)
+					p.Step(d, 0)
 					n--
 					c <- p
 				}
 				// north
 				for j := 0; j <= i && n > 1; j++ {
-					p.Step(0, step)
+					p.Step(0, d)
 					n--
 					c <- p
 				}
 			case 1:
 				// west
 				for j := 0; j <= i && n > 1; j++ {
-					p.Step(-step, 0)
+					p.Step(-d, 0)
 					n--
 					c <- p
 				}
 				// south
 				for j := 0; j <= i && n > 1; j++ {
-					p.Step(0, -step)
+					p.Step(0, -d)
 					n--
 					c <- p
 				}
