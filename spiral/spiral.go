@@ -18,26 +18,26 @@ func Spiral(p geometry.Point, n int, d float64) chan geometry.Point {
 			case 0:
 				// east
 				for j := 0; j <= i && n > 1; j++ {
-					p.Step(d, 0)
+					p.Transform(d, 0)
 					n--
 					c <- p
 				}
 				// north
 				for j := 0; j <= i && n > 1; j++ {
-					p.Step(0, d)
+					p.Transform(0, d)
 					n--
 					c <- p
 				}
 			case 1:
 				// west
 				for j := 0; j <= i && n > 1; j++ {
-					p.Step(-d, 0)
+					p.Transform(-d, 0)
 					n--
 					c <- p
 				}
 				// south
 				for j := 0; j <= i && n > 1; j++ {
-					p.Step(0, -d)
+					p.Transform(0, -d)
 					n--
 					c <- p
 				}

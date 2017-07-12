@@ -1,4 +1,3 @@
-// Package geometry implements geometry functions
 package geometry
 
 import (
@@ -18,7 +17,7 @@ func (p Point) String() string {
 
 // Step moves a Point on the plane x and y units on the xx and yy axes
 // respectively
-func (p *Point) Step(x float64, y float64) {
+func (p *Point) Transform(x float64, y float64) {
 	p.X += x
 	p.Y += y
 }

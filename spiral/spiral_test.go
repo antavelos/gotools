@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestReverse(t *testing.T) {
+func TestSpiral(t *testing.T) {
 	for _, c := range []struct {
 		p    geometry.Point
 		n    int
