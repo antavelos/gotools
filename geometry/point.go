@@ -5,14 +5,14 @@ import (
 )
 
 type Point struct {
-	x, y float64
+	X, Y float64
 }
 
 func (p Point) String() string {
-	return fmt.Sprintf("(%v, %v)", p.x, p.y)
+	return fmt.Sprintf("(%v, %v)", p.X, p.Y)
 }
 
 func (p *Point) Step(x float64, y float64) {
-	p.x += x
-	p.y += y
+	p.X += x
+	p.Y += y
 }
