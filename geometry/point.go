@@ -21,3 +21,11 @@ func (p *Point) Transform(x float64, y float64) {
 	p.X += x
 	p.Y += y
 }
+
+func (p *Point) MoveY(d float64) {
+	p.Transform(0, d)
+}
+
+func (p *Point) MoveX(d float64) {
+	p.Transform(d, 0)
+}

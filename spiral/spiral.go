@@ -3,47 +3,37 @@
 package spiral
 
 import (
-	"github.com/antavelos/gotools/geometry"
+	"math"
+
+	g "github.com/antavelos/gotools/geometry"
 )
 
 // Spiral generates a sequence of points that consist a spiral given a
 // starting point, a desired length of the sequence and the distance
 // between the points
-func Spiral(p geometry.Point, n int, d float64) chan geometry.Point {
-	c := make(chan geometry.Point)
+func Spiral(p g.Point, n int, d float64) chan g.Point {
+	c := make(chan g.Point)
 	go func() {
+		defer close(c)
 		c <- p
-		for i := 0; n > 1; i++ {
-			switch i % 2 {
-			case 0:
-				// east
-				for j := 0; j <= i && n > 1; j++ {
-					p.Transform(d, 0)
-					n--
-					c <- p
+		var i int
+		for {
+			f := math.Pow(-1, float64(i))
+			for j := 0; j <= ((2 * i) + 1); j++ {
+				if j <= i {
+					p.MoveX(d * f)
+				} else {
+					p.MoveY(d * f)
 				}
-				// north
-				for j := 0; j <= i && n > 1; j++ {
-					p.Transform(0, d)
-					n--
-					c <- p
-				}
-			case 1:
-				// west
-				for j := 0; j <= i && n > 1; j++ {
-					p.Transform(-d, 0)
-					n--
-					c <- p
-				}
-				// south
-				for j := 0; j <= i && n > 1; j++ {
-					p.Transform(0, -d)
-					n--
-					c <- p
+				c <- p
+
+				n--
+				if n == 1 {
+					return
 				}
 			}
+			i++
 		}
-		close(c)
 	}()
 	return c
 }
